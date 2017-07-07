@@ -1,5 +1,3 @@
-#include <iostream>
-
 /*
  * Author: Sarah Koziol, MATRIKELNUMMER
  * Date: 2017-07-07
@@ -7,7 +5,9 @@
  * For: Prozessorientierte Programmierung (Sommersemester 2016)
  */
 
-#include <stdio.h> // zeile 1
+#include <stdio.h> // originale zeile 1
+#include <iostream>
+#include <array>
 
 enum ecell {
     NODATA = 0, WAND = 1, KAESE = 2, GASSE = 4, CHECK = 8
@@ -25,6 +25,8 @@ ecell labyrinth[lheight][lwidth] = {
         {WAND, KAESE, GASSE, GASSE, GASSE, WAND},
         {WAND, WAND,  WAND,  WAND,  WAND,  WAND}
 };
+
+int strecke = 0;
 
 ecell get(int x, int y) {
     return (labyrinth[x][y]);
@@ -55,14 +57,17 @@ void suche(int x, int y, int breite, int hoehe) {
         if (y - 1 >= 0) {
             suche(x, y - 1, breite, hoehe);
         }
-    } else setl(x, y, CHECK);
+        strecke++;
+    } else {
+        setl(x, y, CHECK);
+    }
 }
 
 // Aufgabe 2a
 void visualisieren() {
     for (int i = 0; i < lheight; i++) {
         for (int j = 0; j < lwidth; j++) {
-            char charToOutput;
+            char charToOutput = '?';
             switch (get(i, j)) {
                 case WAND:
                     charToOutput = '#';
@@ -74,8 +79,11 @@ void visualisieren() {
                     charToOutput = '.';
                     break;
                 case CHECK:
+                    // Aufgabe 2d
+                    charToOutput = 'x';
                     break;
                 default:
+                    std::cout << get(i, j) << std::endl;
                     break;
             }
             std::cout << charToOutput << ' ';
@@ -87,5 +95,6 @@ void visualisieren() {
 int main() {
     visualisieren();
     suche(0, 1, lheight, lwidth);
+    std::cout << "Zurückgelegte Strecke: " << strecke << std::endl;
     return 0;
 }
