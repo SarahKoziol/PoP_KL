@@ -26,6 +26,7 @@ ecell labyrinth[lheight][lwidth] = {
         {WAND, WAND,  WAND,  WAND,  WAND,  WAND}
 };
 
+int rekursionstiefe = 0;
 int strecke = 0;
 
 ecell get(int x, int y) {
@@ -60,18 +61,18 @@ void suche(int x, int y, int breite, int hoehe) {
 
         // Aufgabe 2g, diagonalen
         // an dieser stelle diagonal gehen als letzte option
-        if (x + 1 < breite && y + 1 < hoehe) {
-            suche(x + 1, y + 1, breite, hoehe);
-        }
-        if (x - 1 >= 0 && y + 1 < hoehe) {
-            suche(x - 1, y + 1, breite, hoehe);
-        }
-        if (x + 1 < breite && y - 1 >= 0) {
-            suche(x - 1, y + 1, breite, hoehe);
-        }
-        if (x - 1 >= 0 && y - 1 >= 0) {
-            suche(x - 1, y + 1, breite, hoehe);
-        }
+//        if (x + 1 < breite && y + 1 < hoehe) {
+//            suche(x + 1, y + 1, breite, hoehe);
+//        }
+//        if (x - 1 >= 0 && y + 1 < hoehe) {
+//            suche(x - 1, y + 1, breite, hoehe);
+//        }
+//        if (x + 1 < breite && y - 1 >= 0) {
+//            suche(x + 1, y - 1, breite, hoehe);
+//        }
+//        if (x - 1 >= 0 && y - 1 >= 0) {
+//            suche(x - 1, y - 1, breite, hoehe);
+//        }
 
         strecke++;
     } else {
@@ -99,7 +100,11 @@ void visualisieren() {
                     charToOutput = 'x';
                     break;
                 default:
-                    std::cout << get(i, j) << std::endl;
+                    // scheinbar werden die zellen nicht auf CHECK gesetzt, sondern CHECK addiert
+                    // daher modulo CHECK (8), wenn rest überbleibt wurde die zelle modifiziert
+                    if (get(i, j) % CHECK > 0) {
+                        charToOutput = 'x';
+                    }
                     break;
             }
             std::cout << charToOutput << ' ';
@@ -109,8 +114,12 @@ void visualisieren() {
 }
 
 int main() {
+    std::cout << "Labyrinth: " << std::endl;
     visualisieren();
     suche(0, 1, lheight, lwidth);
+    std::cout << "Untersuchte Zellen: " << std::endl;
+    visualisieren(); // Aufgabe 2d
+    std::cout << "Rekursionstiefe: " << rekursionstiefe << std::endl;
     std::cout << "Zurückgelegte Strecke: " << strecke << std::endl;
     return 0;
 }
