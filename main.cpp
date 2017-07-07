@@ -38,10 +38,13 @@ void setl(int x, int y, ecell val) {
     labyrinth[x][y] = (ecell) ((int) labyrinth[x][y] | (int) val);
 }
 
+// 2b bspw. std::array<int, 2> statt void, return {x, y} dann
+// alternativ bool und return true / false
 void suche(int x, int y, int breite, int hoehe) {
+    // setl(x, y, CHECK); könnte hier sein und müsste nicht mehrfach unten sein
     if (get(x, y) & KAESE) {
         setl(x, y, CHECK);
-        printf("Käse in der Zelle [%d,%d] gefunden\n", x, y);
+        printf("Käse in der Zelle [%d,%d] gefunden\n", x, y); // TODO 2b auskommentieren
         return;
     } else if (get(x, y) & GASSE && !(get(x, y) & CHECK)) {
         setl(x, y, CHECK);
@@ -78,6 +81,7 @@ void suche(int x, int y, int breite, int hoehe) {
     } else {
         setl(x, y, CHECK);
     }
+    // 2b bspw. return false
 }
 
 // Aufgabe 2a
@@ -116,7 +120,7 @@ void visualisieren() {
 int main() {
     std::cout << "Labyrinth: " << std::endl;
     visualisieren();
-    suche(0, 1, lheight, lwidth);
+    suche(0, 1, lheight, lwidth); // 2b, auf return reagieren
     std::cout << "Untersuchte Zellen: " << std::endl;
     visualisieren(); // Aufgabe 2d
     std::cout << "Rekursionstiefe: " << rekursionstiefe << std::endl;
