@@ -7,6 +7,8 @@
  * For: Prozessorientierte Programmierung (Sommersemester 2016)
  */
 
+#include <stdio.h> // zeile 1
+
 enum ecell {
     NODATA = 0, WAND = 1, KAESE = 2, GASSE = 4, CHECK = 8
 };
@@ -56,7 +58,34 @@ void suche(int x, int y, int breite, int hoehe) {
     } else setl(x, y, CHECK);
 }
 
+// Aufgabe 2a
+void visualisieren() {
+    for (int i = 0; i < lheight; i++) {
+        for (int j = 0; j < lwidth; j++) {
+            char charToOutput;
+            switch (get(i, j)) {
+                case WAND:
+                    charToOutput = '#';
+                    break;
+                case KAESE:
+                    charToOutput = '*';
+                    break;
+                case GASSE:
+                    charToOutput = '.';
+                    break;
+                case CHECK:
+                    break;
+                default:
+                    break;
+            }
+            std::cout << charToOutput << ' ';
+        }
+        std::cout << std::endl;
+    }
+}
+
 int main() {
+    visualisieren();
     suche(0, 1, lheight, lwidth);
     return 0;
 }
