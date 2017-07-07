@@ -1,7 +1,7 @@
 /*
- * Author: Sarah Koziol, MATRIKELNUMMER
- * Date: 2017-07-07
- * Project: Klausur
+ * Author: Sarah Koziol
+ * Matrikelnummer: 915642
+ * Exam: Wie kommt die Maus zum Käse?
  * For: Prozessorientierte Programmierung (Sommersemester 2016)
  */
 
@@ -117,6 +117,7 @@ void visualisieren() {
     }
 }
 
+// Aufgabe 2e
 int main() {
     std::cout << "Labyrinth: " << std::endl;
     visualisieren();
@@ -127,3 +128,6 @@ int main() {
     std::cout << "Zurückgelegte Strecke: " << strecke << std::endl;
     return 0;
 }
+
+// Aufgabe 2f
+// Muss ähnlich wie die Methode suche() verlaufen, jedoch ist das Ziel nicht "Käse" sondern "Koordinate"
