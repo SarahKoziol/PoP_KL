@@ -57,6 +57,22 @@ void suche(int x, int y, int breite, int hoehe) {
         if (y - 1 >= 0) {
             suche(x, y - 1, breite, hoehe);
         }
+
+        // Aufgabe 2g, diagonalen
+        // an dieser stelle diagonal gehen als letzte option
+        if (x + 1 < breite && y + 1 < hoehe) {
+            suche(x + 1, y + 1, breite, hoehe);
+        }
+        if (x - 1 >= 0 && y + 1 < hoehe) {
+            suche(x - 1, y + 1, breite, hoehe);
+        }
+        if (x + 1 < breite && y - 1 >= 0) {
+            suche(x - 1, y + 1, breite, hoehe);
+        }
+        if (x - 1 >= 0 && y - 1 >= 0) {
+            suche(x - 1, y + 1, breite, hoehe);
+        }
+
         strecke++;
     } else {
         setl(x, y, CHECK);
